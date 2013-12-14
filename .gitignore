@@ -1,0 +1,52 @@
+
+[program:filoma]
+d]
+*.pyc
+
+# C extensions
+*.so
+
+# Packages
+
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+__pycache__
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+coverage.xml
+cover
+pep8.txt
+sphinx-output
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# def virtualenv dir
+.venv*
+command = /home/maciej/projects/filoma/bin/gunicorn_start
+user = maciej
+stdout_logfile = /home/maciej/projects/filoma/logs/gunicorn_supervisor.log
+redirect_stderr = true
+
