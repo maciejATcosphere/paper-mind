@@ -10,5 +10,9 @@ Pandas:
 - Integrate notebooks with mindmap
 
 Notebook:
-- Add transformation to the presentation for the notebook (runable cells from presentation)
+- X already covered by newest ipython (soon) -> Add transformation to the presentation for the notebook (runable cells from presentation)
 - Add multiple cursor functionality to the codemirror notebook cell
+
+Sales:
+- Create set of ipython notebooks that could be presented during pitches
+
