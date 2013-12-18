@@ -2,6 +2,9 @@
 Teaching:
 - Start teaching coding by simply encoding in humourous way some sample code (what can you see? words, pharses, letter, different colours). Let students explore those concept so that they could enforce themselves that there is nothing mysterious behind coding
 - After discovering syntax they one can enforce the idea of interpreter! As translatring the code pharses (sentences) into actions!
+- Integrate Quizlet into teaching platform
+- Integrate MindMeister into teaching platform
+- Revive real-time slide presenter for reveal.js
 
 Pandas:
 - Add pandas dataframe display presenting example rows, counts etc.
