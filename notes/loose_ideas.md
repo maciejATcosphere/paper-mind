@@ -7,13 +7,15 @@ Teaching:
 - Revive real-time slide presenter for reveal.js
 
 Pandas:
-- Add pandas dataframe display presenting example rows, counts etc.
+- Add pandas dataframe display presenting example rows, counts etc. (make PR
+  for that!)
 - Overwrite pandas plot to generate js interactive plots when used in notebook
 - Actions on plot could be translated to the masks (pandas macro generator)
 - Integrate notebooks with mindmap
 
 Notebook:
 - X already covered by newest ipython (soon) -> Add transformation to the presentation for the notebook (runable cells from presentation)
+- Add triple display for docstrings (colourful help panel!)
 - Add multiple cursor functionality to the codemirror notebook cell
 
 Sales:
