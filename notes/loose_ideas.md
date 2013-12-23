@@ -17,6 +17,8 @@ Notebook:
 - X already covered by newest ipython (soon) -> Add transformation to the presentation for the notebook (runable cells from presentation)
 - Add triple display for docstrings (colourful help panel!)
 - Add multiple cursor functionality to the codemirror notebook cell
+- Introduce D3.js charts and make them sharable with others in the company. Allow others putting comments on
+the chart directly (one can get access to data and context to where used to produce a given visualization)
 
 Sales:
 - Create set of ipython notebooks that could be presented during pitches
