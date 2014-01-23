@@ -83,34 +83,35 @@ var update_area = function (data, id) {
 
 // main
 g_parseDate = d3.time.format("%d-%b-%y").parse;
-window.sov.forEach(function(d) {
+window.samsung_sov.forEach(function(d) {
     d.x = g_parseDate(d.x);
     d.y = +d.y;
 });
 
-window.empty.forEach(function(d) {
+window.acer_sov.forEach(function(d) {
     d.x = g_parseDate(d.x);
     d.y = +d.y;
 });
 
-window.sov_removed_launches.forEach(function(d) {
-    d.x = g_parseDate(d.x);
-    d.y = +d.y;
-});
+// window.sov_removed_launches.forEach(function(d) {
+//     d.x = g_parseDate(d.x);
+//     d.y = +d.y;
+// });
 
-window.social.forEach(function(d) {
-    d.x = g_parseDate(d.x);
-    d.y = +d.y;
-});
+// window.social.forEach(function(d) {
+//     d.x = g_parseDate(d.x);
+//     d.y = +d.y;
+// });
 
-create_stage(window.sov);
-create_area(window.sov, 'sov');
-create_area(window.empty, 'social');
 
-window.setTimeout(function () {
-    update_area(window.sov_removed_launches, 'sov');
-}, 6000);
+create_stage(window.samsung_sov);
+create_area(window.samsung_sov, 'sov');
+create_area(window.acer_sov, 'social');
 
-window.setTimeout(function () {
-    update_area(window.social, 'social');
-}, 12000);
+// window.setTimeout(function () {
+//     update_area(window.sov_removed_launches, 'sov');
+// }, 6000);
+
+// window.setTimeout(function () {
+//     update_area(window.social, 'social');
+// }, 12000);

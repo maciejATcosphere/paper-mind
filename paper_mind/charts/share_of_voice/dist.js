@@ -5,7 +5,9 @@ var create_stage = function (data) {
     g_width = 960 - margin.left - margin.right;
     g_height = 300 - margin.top - margin.bottom;
 
-    g_x = d3.time.scale().range([0, g_width]);
+    // TODO: only one chage here
+    g_x = d3.scale.linear().range([0, g_width]);
+
     g_y = d3.scale.linear().range([g_height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -82,35 +84,15 @@ var update_area = function (data, id) {
 };
 
 // main
-g_parseDate = d3.time.format("%d-%b-%y").parse;
-window.sov.forEach(function(d) {
-    d.x = g_parseDate(d.x);
-    d.y = +d.y;
-});
 
-window.empty.forEach(function(d) {
-    d.x = g_parseDate(d.x);
-    d.y = +d.y;
-});
-
-window.sov_removed_launches.forEach(function(d) {
-    d.x = g_parseDate(d.x);
-    d.y = +d.y;
-});
-
-window.social.forEach(function(d) {
-    d.x = g_parseDate(d.x);
-    d.y = +d.y;
-});
-
-create_stage(window.sov);
-create_area(window.sov, 'sov');
-create_area(window.empty, 'social');
+create_stage(window.dist_dell);
+create_area(window.dist_dell, 'sov');
+create_area(window.dist_empty_hp, 'social');
 
 window.setTimeout(function () {
-    update_area(window.sov_removed_launches, 'sov');
+    update_area(window.dist_hp, 'social');
 }, 6000);
 
-window.setTimeout(function () {
-    update_area(window.social, 'social');
-}, 12000);
+// window.setTimeout(function () {
+//     update_area(window.social, 'social');
+// }, 12000);
