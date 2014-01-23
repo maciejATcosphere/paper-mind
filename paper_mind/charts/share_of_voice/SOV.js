@@ -32,13 +32,13 @@ var create_stage = function (data) {
 
     g_svg.append("g")
         .attr("class", "y axis")
-        .call(yAxis);
-        // .append("text")
-        //     .attr("transform", "rotate(-90)")
-        //     .attr("y", 6)
-        //     .attr("dy", ".71em")
-        //     .style("text-anchor", "end")
-        //     .text("Price ($)");
+        .call(yAxis)
+        .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", ".71em")
+            .style("text-anchor", "end");
+            // .text(yaxis_label);
 };
 
 // var update_stage = function () {
@@ -62,6 +62,33 @@ var create_area = function (data, id) {
     g_svg.append("path")
         .datum(data)
         .attr('id', id)
+        .attr("d", area);
+};
+
+var shift_area = function (data, id, increment) {
+    // transfom dates first
+    var i, mlt = 24 * 60 * 60 * 1000;
+
+    window.new_data = [];
+    for (i = 0; i < data.length ; i++) {
+        window.new_data.push(
+            {
+                'x': new Date(data[i].x.getTime() + increment * mlt),
+                'y': data[i].y
+            }
+        );
+    }
+
+    // g_x.domain(d3.extent(window.new_data, function(d) { return d.x; }));
+    // g_y.domain([0, d3.max(window.new_data, function(d) { return d.y; })]);
+
+    var area = d3.svg.area()
+        .x(function(d) { return g_x(d.x); })
+        .y0(g_height)
+        .y1(function(d) { return g_y(d.y); });
+
+    g_svg.select("path#" + id)
+        .datum(window.new_data)
         .attr("d", area);
 };
 
@@ -106,11 +133,15 @@ window.social.forEach(function(d) {
 create_stage(window.sov);
 create_area(window.sov, 'sov');
 create_area(window.empty, 'social');
+// shift_area(window.social, 'social', 10);
 
-window.setTimeout(function () {
-    update_area(window.sov_removed_launches, 'sov');
-}, 6000);
+// window.setTimeout(function () {
+//     update_area(window.sov_removed_launches, 'sov');
+// }, 6000);
 
-window.setTimeout(function () {
-    update_area(window.social, 'social');
-}, 12000);
+// window.setTimeout(function () {
+//     update_area(window.social, 'social');
+// }, 12000);
+
+update_area(window.sov_removed_launches, 'sov');
+update_area(window.social, 'social');
