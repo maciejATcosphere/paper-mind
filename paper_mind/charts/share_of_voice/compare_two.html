@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <style>
+            body {
+                font: 10px sans-serif;
+            }
+            .axis path,
+            .axis line {
+                fill: none;
+                stroke: #000;
+                shape-rendering: crispEdges;
+            }
+            #series0 {
+                fill: steelblue;
+                fill-opacity: 0.7;
+            }
+            #series1 {
+                fill: red;
+                fill-opacity: 0.5;
+            }
+            </style>
+        <script src="http://d3js.org/d3.v3.js"></script>
+        <script src='data/sov_Q3_absolute.js'></script>
+        <script src='data/sov_Q3.js'></script>
+        <script src='data/sentiment_Q3.js'></script>
+        <script src='data/sov_Q4_absolute.js'></script>
+        <script src='data/sov_Q4.js'></script>
+        <script src='data/sentiment_Q4.js'></script>
+        <script src='data/sov_high_correlation_period.js'></script>
+        <script src='data/sentiment_high_correlation_period.js'></script>
+    </head>
+
+    <body>
+        <div id="chart-0"></div>
+        <div id="chart-1"></div>
+        <div id="chart-2"></div>
+        <div id="chart-3"></div>
+        <div id="chart-4"></div>
+        <script src="basis.js"></script>
+        <script>
+            g_parseDate = d3.time.format("%d-%b-%y").parse;
+            function parse_data(data) {
+                data.forEach(function(d) {
+                    d.x = g_parseDate(d.x);
+                    d.y = +d.y;
+                });
+            }
+
+            parse_data(window.sov_Q3_absolute);
+            parse_data(window.sov_Q3);
+            parse_data(window.sentiment_Q3);
+
+            parse_data(window.sov_Q4_absolute);
+            parse_data(window.sov_Q4);
+            parse_data(window.sentiment_Q4);
+
+            parse_data(window.sov_high_correlation_period);
+            parse_data(window.sentiment_high_correlation_period);
+
+            var yaxis_label = 'Share of Voice Q3';
+            var secondary_yaxis_label = 'sentiment Q3';
+
+            create_stage(
+                'chart-0',
+                window.sov_Q3_absolute,
+                window.sentiment_Q3,
+                'Volume of Mentions Q3',
+                'Sentiment Q3'
+            );
+            create_area(window.sov_Q3_absolute, window.sentiment_Q3);
+
+            create_stage(
+                'chart-1',
+                window.sov_Q3,
+                window.sentiment_Q3,
+                'Share of Voice Q3',
+                'Sentiment Q3'
+            );
+            create_area(window.sov_Q3, window.sentiment_Q3);
+
+            create_stage(
+                'chart-2',
+                window.sov_Q4_absolute,
+                window.sentiment_Q4,
+                'Volume of Mentions Q4',
+                'Sentiment Q4'
+            );
+            create_area(window.sov_Q4_absolute, window.sentiment_Q4);
+
+            create_stage(
+                'chart-3',
+                window.sov_Q4,
+                window.sentiment_Q4,
+                'Share of Voice Q4',
+                'Sentiment Q4'
+            );
+            create_area(window.sov_Q4, window.sentiment_Q4);
+
+            create_stage(
+                'chart-4',
+                window.sov_high_correlation_period,
+                window.sentiment_high_correlation_period,
+                'Share of Voice 2nd half of Q4',
+                'Sentiment 2nd half of Q4'
+            );
+            create_area(window.sov_high_correlation_period,
+                window.sentiment_high_correlation_period);
+        </script>
+    </body>
+</html>

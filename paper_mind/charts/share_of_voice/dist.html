@@ -13,20 +13,41 @@
                 stroke: #000;
                 shape-rendering: crispEdges;
             }
-            #sov {
+            #series0 {
                 fill: steelblue;
             }
-            #social {
+            #series1 {
+                fill: red;
+                fill-opacity: 0.5;
+            }
+            .series0-legend-text {
+                fill: steelblue;
+                font-size: 16px;
+            }
+            .series0-legend-rect {
+                fill: steelblue;
+            }
+            .series1-legend-text {
+                fill: red;
+                font-size: 16px;
+                fill-opacity: 0.5;
+            }
+            .series1-legend-rect {
                 fill: red;
                 fill-opacity: 0.5;
             }
             </style>
         <script src="http://d3js.org/d3.v3.js"></script>
-        <script src="data.js"></script>
+        <script src='data/dist_apple.js'></script>
+        <script src='data/dist_hp.js'></script>
+        <script src='data/dist_samsung.js'></script>
+        <script src='data/dist_dell.js'></script>
     </head>
 
     <body>
-        <div id="chart"></div>
+        <div id="chart-0"></div>
+        <div id="chart-1"></div>
+        <div id="chart-2"></div>
         <script src="dist.js"></script>
     </body>
 </html>
