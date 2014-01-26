@@ -1,8 +1,8 @@
 
 
 var create_stage = function (id, data0, data1, yaxis_label, secondary_yaxis_label) {
-    margin = {top: 20, right: 20, bottom: 30, left: 50};
-    g_width = 960 - margin.left - margin.right;
+    margin = {top: 30, right: 100, bottom: 30, left: 100};
+    g_width = 1060 - margin.left - margin.right;
     g_height = 300 - margin.top - margin.bottom;
 
     g_x = d3.time.scale().range([0, g_width]);
@@ -22,7 +22,7 @@ var create_stage = function (id, data0, data1, yaxis_label, secondary_yaxis_labe
         .orient("right").ticks(5);
 
     g_x.domain(d3.extent(data0, function(d) { return d.x; }));
-    g_y0.domain([0, d3.max(data0, function(d) { return 10 * d.y; })]);
+    g_y0.domain([0, d3.max(data0, function(d) { return d.y; })]);
     g_y1.domain([0, d3.max(data1, function(d) { return d.y; })]);
 
     g_svg = d3.select('#' + id).append("svg")
@@ -157,12 +157,12 @@ var shift_area = function (data, id, increment) {
 
 var update_area = function (data, id) {
     g_x.domain(d3.extent(data, function(d) { return d.x; }));
-    g_y.domain([0, d3.max(data, function(d) { return d.y; })]);
+    g_y0.domain([0, d3.max(data, function(d) { return d.y; })]);
 
     var area = d3.svg.area()
         .x(function(d) { return g_x(d.x); })
         .y0(g_height)
-        .y1(function(d) { return g_y(d.y); });
+        .y1(function(d) { return g_y0(d.y); });
 
     g_svg.select("path#" + id)
         .datum(data)

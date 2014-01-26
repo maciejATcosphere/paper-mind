@@ -13,20 +13,190 @@
                 stroke: #000;
                 shape-rendering: crispEdges;
             }
-            #sov {
+            #series0 {
                 fill: steelblue;
+                fill-opacity: 0.7;
             }
-            #social {
+            #series1 {
                 fill: red;
                 fill-opacity: 0.5;
             }
             </style>
         <script src="http://d3js.org/d3.v3.js"></script>
-        <script src="data.js"></script>
+
+        <script src='data/sov_ma5.js'></script>
+        <script src='data/sov_removed_launches_ma5.js'></script>
+        <script src='data/vom_ma5.js'></script>
+        <script src='data/vom_removed_launches_ma5.js'></script>
+
+        <script src='data/fb_paid_impressions_ma5.js'></script>
+        <script src='data/tw_paid_impressions_ma5.js'></script>
+        <script src='data/total_impressions_ma5.js'></script>
+        <script src='data/fb_spend_ma5.js'></script>
+        <script src='data/tw_spend_ma5.js'></script>
+        <script src='data/total_spend_ma5.js'></script>
     </head>
 
     <body>
-        <div id="chart"></div>
-        <script src="SOV.js"></script>
+        <!-- Paid FB Impressions vs SOV (VOM) -->
+        <div id="chart-0"></div>
+        <div id="chart-1"></div>
+        <!-- Paid TW Impressions vs SOV (VOM) -->
+        <div id="chart-2"></div>
+        <div id="chart-3"></div>
+        <!-- Total Paid Impressions vs SOV (VOM) -->
+        <div id="chart-4"></div>
+        <div id="chart-5"></div>
+        <!-- FB Spend vs SOV (VOM) -->
+        <div id="chart-6"></div>
+        <div id="chart-7"></div>
+        <!-- TW Spend vs SOV (VOM) -->
+        <div id="chart-8"></div>
+        <div id="chart-9"></div>
+        <!-- Total Spend vs SOV (VOM) -->
+        <div id="chart-10"></div>
+        <div id="chart-11"></div>
+
+        <script src="basis.js"></script>
+        <script>
+            g_parseDate = d3.time.format("%d-%b-%y").parse;
+            function parse_data(data) {
+                data.forEach(function(d) {
+                    d.x = g_parseDate(d.x);
+                    d.y = +d.y;
+                });
+            }
+
+            parse_data(window.sov_ma5);
+            parse_data(window.sov_removed_launches_ma5);
+            parse_data(window.vom_ma5);
+            parse_data(window.vom_removed_launches_ma5);
+
+            parse_data(window.fb_paid_impressions_ma5);
+            parse_data(window.tw_paid_impressions_ma5);
+            parse_data(window.total_impressions_ma5);
+            parse_data(window.fb_spend_ma5);
+            parse_data(window.tw_spend_ma5);
+            parse_data(window.total_spend_ma5);
+
+            // facebook paid impressions
+            create_stage(
+                'chart-0',
+                window.sov_ma5,
+                window.fb_paid_impressions_ma5,
+                'Share of Voice',
+                'Facebook Paid Impressions'
+            );
+            create_area(window.sov_ma5, window.fb_paid_impressions_ma5);
+
+            create_stage(
+                'chart-1',
+                window.vom_ma5,
+                window.fb_paid_impressions_ma5,
+                'Volume of Mentions',
+                'Facebook Paid Impressions'
+            );
+            create_area(window.vom_ma5, window.fb_paid_impressions_ma5);
+
+            // twitter paid impressions
+            create_stage(
+                'chart-2',
+                window.sov_ma5,
+                window.tw_paid_impressions_ma5,
+                'Share of Voice',
+                'Twitter Paid Impressions'
+            );
+            create_area(window.sov_ma5, window.tw_paid_impressions_ma5);
+
+            create_stage(
+                'chart-3',
+                window.vom_ma5,
+                window.tw_paid_impressions_ma5,
+                'Volume of Mentions',
+                'Twitter Paid Impressions'
+            );
+            create_area(window.vom_ma5, window.tw_paid_impressions_ma5);
+
+            // total paid impressions
+            create_stage(
+                'chart-4',
+                window.sov_ma5,
+                window.total_impressions_ma5,
+                'Share of Voice',
+                'Total Paid Impressions'
+            );
+            create_area(window.sov_ma5, window.total_impressions_ma5);
+
+            create_stage(
+                'chart-5',
+                window.vom_ma5,
+                window.total_impressions_ma5,
+                'Volume of Mentions',
+                'Total Paid Impressions'
+            );
+            create_area(window.vom_ma5, window.total_impressions_ma5);
+
+            // facebook spend
+            create_stage(
+                'chart-6',
+                window.sov_ma5,
+                window.fb_spend_ma5,
+                'Share of Voice',
+                'Facebook Spend'
+            );
+            create_area(window.sov_ma5, window.fb_spend_ma5);
+
+            create_stage(
+                'chart-7',
+                window.vom_ma5,
+                window.fb_spend_ma5,
+                'Volume of Mentions',
+                'Facebook Spend'
+            );
+            create_area(window.vom_ma5, window.fb_spend_ma5);
+
+            // twitter spend
+            create_stage(
+                'chart-8',
+                window.sov_ma5,
+                window.tw_spend_ma5,
+                'Share of Voice',
+                'Twitter Spend'
+            );
+            create_area(window.sov_ma5, window.tw_spend_ma5);
+
+            create_stage(
+                'chart-9',
+                window.vom_ma5,
+                window.tw_spend_ma5,
+                'Volume of Mentions',
+                'Twitter Spend'
+            );
+            create_area(window.vom_ma5, window.tw_spend_ma5);
+
+
+            // total spend
+            create_stage(
+                'chart-10',
+                window.sov_ma5,
+                window.total_spend_ma5,
+                'Share of Voice',
+                'Total Spend'
+            );
+            create_area(window.sov_ma5, window.total_spend_ma5);
+
+            window.setTimeout(function () {
+                update_area(window.sov_removed_launches, 'series');
+            }, 3000);
+
+            create_stage(
+                'chart-11',
+                window.vom_ma5,
+                window.total_spend_ma5,
+                'Volume of Mentions',
+                'Total Spend'
+            );
+            create_area(window.vom_ma5, window.total_spend_ma5);
+        </script>
     </body>
 </html>

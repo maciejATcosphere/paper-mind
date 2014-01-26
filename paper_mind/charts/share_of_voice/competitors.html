@@ -13,20 +13,158 @@
                 stroke: #000;
                 shape-rendering: crispEdges;
             }
-            #sov {
+            #series0 {
                 fill: steelblue;
+                fill-opacity: 0.7;
             }
-            #social {
+            #series1 {
                 fill: red;
                 fill-opacity: 0.5;
             }
             </style>
         <script src="http://d3js.org/d3.v3.js"></script>
-        <script src="data.js"></script>
+
+        <script src='data/samsung_sov.js'></script>
+        <script src='data/samsung_vom.js'></script>
+        <script src='data/dell_sov.js'></script>
+        <script src='data/dell_vom.js'></script>
+        <script src='data/toshiba_sov.js'></script>
+        <script src='data/toshiba_vom.js'></script>
+        <script src='data/asus_sov.js'></script>
+        <script src='data/asus_vom.js'></script>
+        <script src='data/acer_sov.js'></script>
+        <script src='data/acer_vom.js'></script>
     </head>
 
     <body>
-        <div id="chart"></div>
+        <div id="chart-0"></div>
+        <div id="chart-1"></div>
+
+        <div id="chart-2"></div>
+        <div id="chart-3"></div>
+
+        <div id="chart-4"></div>
+        <div id="chart-5"></div>
+
+        <div id="chart-6"></div>
+        <div id="chart-7"></div>
+
+        <div id="chart-8"></div>
+        <div id="chart-9"></div>
+
+        <div id="chart-10"></div>
+
         <script src="competitors.js"></script>
+        <script>
+            g_parseDate = d3.time.format("%d-%b-%y").parse;
+            function parse_data(data) {
+                data.forEach(function(d) {
+                    d.x = g_parseDate(d.x);
+                    d.y = +d.y;
+                });
+            }
+
+            parse_data(window.dell_sov);
+            parse_data(window.dell_vom);
+
+            parse_data(window.samsung_sov);
+            parse_data(window.samsung_vom);
+
+            parse_data(window.toshiba_sov);
+            parse_data(window.toshiba_vom);
+
+            parse_data(window.asus_sov);
+            parse_data(window.asus_vom);
+
+            parse_data(window.acer_sov);
+            parse_data(window.acer_vom);
+
+            // Dell
+            create_stage(
+                'chart-0',
+                window.dell_sov,
+                'Dell\'s Share of Voice'
+            );
+            create_area(window.dell_sov);
+
+            create_stage(
+                'chart-1',
+                window.dell_vom,
+                'Dell\'s Volume of Mentions'
+            );
+            create_area(window.dell_vom);
+
+            // Samsung
+            create_stage(
+                'chart-2',
+                window.samsung_sov,
+                'Samsung\'s Share of Voice'
+            );
+            create_area(window.samsung_sov);
+
+            create_stage(
+                'chart-3',
+                window.samsung_vom,
+                'Samsung\'s Volume of Mentions'
+            );
+            create_area(window.samsung_vom);
+
+            // Toshiba
+            create_stage(
+                'chart-4',
+                window.toshiba_sov,
+                'Toshiba\'s Share of Voice'
+            );
+            create_area(window.toshiba_sov);
+
+            create_stage(
+                'chart-5',
+                window.toshiba_vom,
+                'Toshiba\'s Volume of Mentions'
+            );
+            create_area(window.toshiba_vom);
+
+            // Asus
+            create_stage(
+                'chart-6',
+                window.asus_sov,
+                'Asus\'s Share of Voice'
+            );
+            create_area(window.asus_sov);
+
+            create_stage(
+                'chart-7',
+                window.asus_vom,
+                'Asus\'s Volume of Mentions'
+            );
+            create_area(window.asus_vom);
+
+            // Acer
+            create_stage(
+                'chart-8',
+                window.acer_sov,
+                'Acer\'s Share of Voice'
+            );
+            create_area(window.acer_sov);
+
+            create_stage(
+                'chart-9',
+                window.acer_vom,
+                'Acer\'s Volume of Mentions'
+            );
+            create_area(window.acer_vom);
+
+            // combined
+            create_stage_for_2(
+                'chart-10',
+                window.samsung_vom,
+                window.toshiba_vom,
+                'Volume of Mentions',
+                'Samsung\'s Volume of Mentions',
+                'Toshiba\'s Volume of Mentions'
+            );
+            create_area(window.samsung_vom, 'series0');
+            create_area(window.toshiba_vom, 'series1');
+        </script>
     </body>
 </html>

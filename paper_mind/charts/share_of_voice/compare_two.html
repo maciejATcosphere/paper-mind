@@ -30,6 +30,7 @@
         <script src='data/sov_Q4.js'></script>
         <script src='data/sentiment_Q4.js'></script>
         <script src='data/sov_high_correlation_period.js'></script>
+        <script src='data/vom_high_correlation_period.js'></script>
         <script src='data/sentiment_high_correlation_period.js'></script>
     </head>
 
@@ -39,6 +40,7 @@
         <div id="chart-2"></div>
         <div id="chart-3"></div>
         <div id="chart-4"></div>
+        <div id="chart-5"></div>
         <script src="basis.js"></script>
         <script>
             g_parseDate = d3.time.format("%d-%b-%y").parse;
@@ -58,10 +60,8 @@
             parse_data(window.sentiment_Q4);
 
             parse_data(window.sov_high_correlation_period);
+            parse_data(window.vom_high_correlation_period);
             parse_data(window.sentiment_high_correlation_period);
-
-            var yaxis_label = 'Share of Voice Q3';
-            var secondary_yaxis_label = 'sentiment Q3';
 
             create_stage(
                 'chart-0',
@@ -108,6 +108,17 @@
             );
             create_area(window.sov_high_correlation_period,
                 window.sentiment_high_correlation_period);
+
+            create_stage(
+                'chart-5',
+                window.vom_high_correlation_period,
+                window.sentiment_high_correlation_period,
+                'Volume Of Mentions 2nd half of Q4',
+                'Sentiment 2nd half of Q4'
+            );
+            create_area(window.vom_high_correlation_period,
+                window.sentiment_high_correlation_period);
+
         </script>
     </body>
 </html>

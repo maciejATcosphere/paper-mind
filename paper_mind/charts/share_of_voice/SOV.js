@@ -135,13 +135,10 @@ create_area(window.sov, 'sov');
 create_area(window.empty, 'social');
 // shift_area(window.social, 'social', 10);
 
-// window.setTimeout(function () {
-//     update_area(window.sov_removed_launches, 'sov');
-// }, 6000);
+window.setTimeout(function () {
+    update_area(window.sov_removed_launches, 'sov');
+}, 3000);
 
-// window.setTimeout(function () {
-//     update_area(window.social, 'social');
-// }, 12000);
-
-update_area(window.sov_removed_launches, 'sov');
-update_area(window.social, 'social');
+window.setTimeout(function () {
+    update_area(window.social, 'social');
+}, 6000);
