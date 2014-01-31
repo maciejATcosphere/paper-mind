@@ -38,6 +38,7 @@ var create_stage = function (id, data0, data1, yaxis_label, secondary_yaxis_labe
 
     g_svg.append("g")
         .attr("class", "y axis")
+        .attr('id', 'left-axis-' + id)
         .call(yAxisLeft)
         .append("text")
             .attr("transform", "rotate(-90)")
@@ -74,6 +75,7 @@ var create_stage = function (id, data0, data1, yaxis_label, secondary_yaxis_labe
         .style("fill", 'steelblue');
 
     g.append("text")
+        .attr('id', 'text-' + id)
         .attr("x", 80)
         .attr("y", 0 * 25 + 8)
         .attr("height", 30)
@@ -102,7 +104,7 @@ var create_stage = function (id, data0, data1, yaxis_label, secondary_yaxis_labe
         .text(secondary_yaxis_label);
 };
 
-var create_area = function (data0, data1) {
+var create_area = function (data0, data1, id) {
     g_x.domain(d3.extent(data0, function(d) { return d.x; }));
     g_y0.domain([0, d3.max(data0, function(d) { return d.y; })]);
     g_y1.domain([0, d3.max(data1, function(d) { return d.y; })]);
@@ -114,7 +116,8 @@ var create_area = function (data0, data1) {
 
     g_svg.append("path")
         .datum(data0)
-        .attr('id', 'series0')
+        .attr('id', 'path' + id + '-0')
+        .attr('class', 'series0')
         .attr("d", area);
 
     var area = d3.svg.area()
@@ -124,47 +127,60 @@ var create_area = function (data0, data1) {
 
     g_svg.append("path")
         .datum(data1)
-        .attr('id', 'series1')
+        .attr('id', 'path' + id + '-1')
+        .attr('class', 'series1')
         .attr("d", area);
 };
 
-var shift_area = function (data, id, increment) {
-    // transfom dates first
-    var i, mlt = 24 * 60 * 60 * 1000;
+// var shift_area = function (data, id, increment) {
+//     // transfom dates first
+//     var i, mlt = 24 * 60 * 60 * 1000;
 
-    window.new_data = [];
-    for (i = 0; i < data.length ; i++) {
-        window.new_data.push(
-            {
-                'x': new Date(data[i].x.getTime() + increment * mlt),
-                'y': data[i].y
-            }
-        );
-    }
+//     window.new_data = [];
+//     for (i = 0; i < data.length ; i++) {
+//         window.new_data.push(
+//             {
+//                 'x': new Date(data[i].x.getTime() + increment * mlt),
+//                 'y': data[i].y
+//             }
+//         );
+//     }
 
-    // g_x.domain(d3.extent(window.new_data, function(d) { return d.x; }));
-    // g_y.domain([0, d3.max(window.new_data, function(d) { return d.y; })]);
+//     // g_x.domain(d3.extent(window.new_data, function(d) { return d.x; }));
+//     // g_y.domain([0, d3.max(window.new_data, function(d) { return d.y; })]);
 
-    var area = d3.svg.area()
-        .x(function(d) { return g_x(d.x); })
-        .y0(g_height)
-        .y1(function(d) { return g_y(d.y); });
+//     var area = d3.svg.area()
+//         .x(function(d) { return g_x(d.x); })
+//         .y0(g_height)
+//         .y1(function(d) { return g_y(d.y); });
 
-    g_svg.select("path#" + id)
-        .datum(window.new_data)
-        .attr("d", area);
-};
+//     g_svg.select("path#" + id)
+//         .datum(window.new_data)
+//         .attr("d", area);
+// };
 
-var update_area = function (data, id) {
+var update_area = function (data, id, new_legend) {
     g_x.domain(d3.extent(data, function(d) { return d.x; }));
     g_y0.domain([0, d3.max(data, function(d) { return d.y; })]);
+
+    var yAxisLeft = d3.svg.axis().scale(g_y0)
+        .orient("left").ticks(5);//.tickFormat(formatPercent);
+
+    // g_svg = d3.select('#' + id + ' svg');
+    d3.select("text#text-" + id)
+        .text(new_legend);
+
+    d3.select("#left-axis-" + id)
+        .transition()
+            .duration(2500)
+            .call(yAxisLeft);
 
     var area = d3.svg.area()
         .x(function(d) { return g_x(d.x); })
         .y0(g_height)
         .y1(function(d) { return g_y0(d.y); });
 
-    g_svg.select("path#" + id)
+    d3.select("path#path" + id + "-0")
         .datum(data)
         .transition()
             .duration(2500)
